@@ -1,0 +1,1 @@
+export const backend_url = "https://cuvette-2024-backend-2.onrender.com";
