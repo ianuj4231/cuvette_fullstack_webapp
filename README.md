@@ -8,7 +8,8 @@
   - React and hooks
   - Javascript
   - Axios, Fetch API
-  - Vercel for deployment
+  - Vercel for deploymen
+  - Protected Routes
 
 - **Backend**:
   - Node.js
