@@ -5,7 +5,7 @@ const app = express();
 const PORT = 5000;
 app.use(express.json());
 
-app.use(cors({origin: "http://localhost:3000"}));
+app.use(cors({origin: "https://cuvette-fullstack-webapp-58mz2saxt-ianuj4231s-projects.vercel.app"}));
 app.use("/api/v1",  (req, res, next)=>{console.log("in serverxx");next();
 } , mainRouter);
 

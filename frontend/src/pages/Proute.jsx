@@ -11,7 +11,7 @@ const PRoute = () => {
         console.log("State in PRoute is: ", token);
 
         if (!token) {
-            nav("/company/signup");
+            nav("/");
         } else {
             console.log(token);
 
