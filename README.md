@@ -1,4 +1,4 @@
-## Live Demo
+## Deployed Links
 
 - **Frontend**: [Cuvette Fullstack Web App](https://cuvette-fullstack-webapp.vercel.app/)
 - **Backend**: [Cuvette Backend API](https://cuvettebackend2.onrender.com)
