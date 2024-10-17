@@ -9,7 +9,7 @@
   - Javascript
   - Axios, Fetch API
   - Vercel for deploymen
-  - Protected Routes
+  - Single Protected Route file used in multiple files to check token expiration and to remove it from localStorage if expired.
 
 - **Backend**:
   - Node.js
