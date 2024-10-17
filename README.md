@@ -8,8 +8,9 @@
   - React and hooks
   - Javascript
   - Axios, Fetch API
-  - Vercel for deploymen
-  - Single Protected Route file used in multiple files to check token expiration and to remove it from localStorage if expired.
+  - Vercel for deployment
+  - This protected route component is used only once to wrap multiple React pages. It eliminates the need to rewrite the same token expiration and localStorage removal logic in every file.
+    
 
 - **Backend**:
   - Node.js
