@@ -9,7 +9,7 @@
   - Javascript
   - Axios, Fetch API
   - Vercel for deployment
-  - This protected route component is used only once to wrap multiple React pages. It eliminates the need to rewrite the same token expiration and localStorage removal logic in every file.
+  - A protected route component is used only once to wrap multiple React pages. It eliminates the need to rewrite the same token expiration and localStorage removal logic in every file.
     
 
 - **Backend**:
