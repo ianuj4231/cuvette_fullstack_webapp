@@ -1,7 +1,7 @@
 ## Deployed Links
 
 - **Frontend**: https://cuvette-fullstack-webapp.vercel.app/
-- **Backend**: https://cuvettebackend2.onrender.com
+- **Backend API**: https://cuvettebackend2.onrender.com
 ## Technologies Used
 
 - **Frontend**: 
