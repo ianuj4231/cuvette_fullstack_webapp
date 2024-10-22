@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { backend_url } from '../config';
 import "../App.css";
-import Navbar2 from '../components/Navbar2';
+import Navbar4 from '../components/Navbar4';
 import Navbar1 from '../components/Navbar1';
 
 const baseUrl = backend_url;
@@ -168,7 +168,7 @@ function VerifyEmailAndPhone() {
 
   return (
     <div>
-      {isTokenValid ? <Navbar2 /> : <Navbar1 />}
+      {isTokenValid ? <Navbar4 /> : <Navbar1 />}
       <div className="verify-email-container">
         <div className="verify-email-left">
           <br />
