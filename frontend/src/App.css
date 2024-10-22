@@ -36,3 +36,325 @@
     transform: rotate(360deg);
   }
 }
+
+.signup-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 50px;
+  height: 80vh;
+  padding: 20px;
+}
+
+.signup-info {
+  flex: 1;
+  margin-top: 25px;
+  margin-right: 65px; 
+  font-size: 18px;
+  line-height: 1.6;
+  padding:  100px 100px;
+}
+
+.signup-form {
+  flex: 1;
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #07c9ff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.signup-form input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0; 
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.signup-form button {
+  background-color: rgb(3, 91, 255);
+  color: white;
+  padding: 15px;
+  width: 80%;
+  border-radius: 10px;  
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+.signup-form button:hover {
+  background-color: darkblue;
+}
+
+.navbarSignup {
+  background-color: white;  
+  padding: 10px 10px; 
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.navbar-content {
+  display: flex; 
+  width: 100%; 
+  max-width: 1200px; 
+  margin: 0 auto; 
+}
+
+.logo {
+  font-size: 24px;  
+  color: blue; 
+  font-weight: bold; 
+}
+
+
+
+
+.contact a {
+  color: rgba(52, 52, 52, 0.8);
+  text-decoration: none;
+  font-size: 18px; 
+}
+
+.contact a:hover {
+  text-decoration: underline; 
+}
+
+
+.contact {
+  display: flex;
+  align-items: center; 
+  margin-left: auto;
+}
+
+.signup-form input {
+  width: 100%;
+  padding: 12px 12px 12px 40px;
+  margin: 10px 0; 
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box; 
+}
+
+.input-group {
+  position: relative; 
+  display: flex; 
+  align-items: center; 
+  margin-bottom: 15px; 
+}
+.input-icon {
+  position: absolute; 
+  left: 12px;  
+  top: 50%; 
+  transform: translateY(-50%); 
+  font-size: 24px; 
+  color: gray;
+}
+
+.verify-email-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 20px;
+  margin-top: 200px; 
+  gap: 20px;
+}
+
+.verify-email-left {
+  flex: 1;
+  padding: 20px;
+  border-right: 1px ;
+}
+
+.verify-email-right {
+  flex: 1;
+  padding: 20px;
+  margin-top: -10px;
+
+}
+
+.verify-email-right form {
+  margin-bottom: 20px;
+  margin-top: -10px;
+}
+
+.verify-email-right input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.verify-email-right button {
+  background-color: rgb(3, 91, 255);
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.verify-email-right button:hover {
+  background-color: rgb(2, 70, 200);
+}
+
+.verify-email-left p {
+  margin-bottom: 20px;
+}
+
+
+
+
+
+
+.sidebar {
+  height: 100vh;
+  width: 60px;
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.sidebar-item {
+  padding: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+.sidebar-item:hover {
+  background-color: #555;
+}
+
+
+.content-container {
+  display: flex;
+  margin-top: 20px; 
+}
+
+ 
+.sidebar {
+  width: 60px ; 
+  background-color: white;
+  padding: 20px;
+  justify-content: flex-start; 
+  border-right: 2px solid grey; 
+}
+
+.form-container {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #fff;
+}
+
+
+
+.job-form {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px 20px;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group {
+  display: contents;
+}
+
+label {
+  grid-column: 1;
+  text-align: right;
+  padding-right: 10px;
+}
+
+input,
+select {
+  grid-column: 2;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+textarea {
+  height:  80px;
+  resize: vertical;
+  margin-bottom: 10px;
+}
+
+.email-field {
+  display: flex;
+  gap: 10px;
+}
+
+button[type="submit"] {
+  grid-column: 2;
+  width: fit-content;
+  padding: 10px 20px;
+  background-color: rgb(7, 185, 244);
+  border: none;cursor: pointer;
+  font-weight: bold; 
+}
+
+
+.email-list-container {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  margin-top: 10px;
+  min-height: 40px;
+  background-color: #f9f9f9;
+}
+
+.email-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.email-item {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  padding: 5px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  flex: 1 0 30%;
+  min-width: 150px;
+}
+
+.remove-email {
+  margin-left: 5px;
+  color: red;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.button-accept {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.button-reject {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}

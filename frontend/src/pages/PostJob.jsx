@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { backend_url } from '../config';
-
+import Navbar3 from '../components/Navbar3';
+import Sidebar1 from '../components/Sidebar1';
 const baseUrl = backend_url;
 
 function PostJob() {
@@ -28,8 +29,7 @@ function PostJob() {
                         },
                     }
                 );
-                const { isEmailVerified, isPhoneNumberVerified } = response.data;
-
+                const { email: isEmailVerified, phoneNumber: isPhoneNumberVerified } = response.data.isVerified;
                 setIsVerified(isEmailVerified && isPhoneNumberVerified);
                 setLoading(false);
             } catch (error) {
@@ -39,7 +39,6 @@ function PostJob() {
         }
         fetcher();
     }, []);
-
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -66,13 +65,10 @@ function PostJob() {
                     }
                 }
             );
-            console.log('response ', response.data);
             nav("/company/createInterview");
         } catch (error) {
             console.error('Error while posting job:', error);
         }
-
-        console.log('Job Data:', jobData);
     }
 
     const handleAddEmail = (e) => {
@@ -83,6 +79,10 @@ function PostJob() {
         } else {
             alert("Please enter a valid email");
         }
+    };
+
+    const handleRemoveEmail = (emailToRemove) => {
+        setEmails((prevEmails) => prevEmails.filter((email) => email !== emailToRemove));
     };
 
     if (loading) {
@@ -99,81 +99,82 @@ function PostJob() {
 
     return (
         <div>
+          <Navbar3 />
+          <div className="content-container">
+            <Sidebar1 />
+            <div className="form-container">
             <h2>Job Posting Form</h2>
-
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        Job Title:
-                        <input
-                            type="text"
-                            value={jobTitle}
-                            onChange={(e) => setJobTitle(e.target.value)}
-                            required
-                        />
-                    </label>
+            <form onSubmit={handleSubmit} className="job-form">
+                <div className="form-group">
+                    <label>Job Title:</label>
+                    <input
+                        type="text"
+                        value={jobTitle}
+                        onChange={(e) => setJobTitle(e.target.value)}
+                        required
+                    />
                 </div>
-                <br />
-                <div>
-                    <label>
-                        Job Description:
-                        <textarea
-                            value={jobDescription}
-                            onChange={(e) => setJobDescription(e.target.value)}
-                            required
-                        />
-                    </label>
+                <div className="form-group">
+                    <label>Job Description:</label>
+                    <textarea
+                        value={jobDescription}
+                        onChange={(e) => setJobDescription(e.target.value)}
+                        required
+                    />
                 </div>
-                <br />
-                <div>
-                    <label>
-                        Experience Level:
-                        <select
-                            value={experienceLevel}
-                            onChange={(e) => setExperienceLevel(e.target.value)}
-                            required
-                        >
-                            <option value="">select experience level</option>
-                            <option value="0-1">0-1 years</option>
-                            <option value="1-2">1-2 years</option>
-                            <option value="2-3">2-3 years</option>
-                            <option value="3-5">3-5 years</option>
-                            <option value=">5">More than 5 years</option>
-                        </select>
-                    </label>
+                <div className="form-group">
+                    <label>Experience Level:</label>
+                    <select
+                        value={experienceLevel}
+                        onChange={(e) => setExperienceLevel(e.target.value)}
+                        required
+                    >
+                        <option value="">Select experience level</option>
+                        <option value="0-1">0-1 years</option>
+                        <option value="1-2">1-2 years</option>
+                        <option value="2-3">2-3 years</option>
+                        <option value="3-5">3-5 years</option>
+                        <option value=">5">More than 5 years</option>
+                    </select>
                 </div>
-                <br />
-                <div>
-                    <label>
-                        End Date:
-                        <input
-                            type="date"
-                            value={endDate}
-                            onChange={(e) => setEndDate(e.target.value)}
-                            required
-                        />
-                    </label>
+                <div className="form-group">
+                    <label>End Date:</label>
+                    <input
+                        type="date"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                        required
+                    />
                 </div>
-                <br />
-
-                <div>
-                    <label>
-                        Add Candidate Emails:
-                        <br />
+                <div className="form-group">
+                    <label>Add Candidate Emails:</label>
+                    <div className="email-field">
                         <input
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Enter candidate email"
                         />
-                        <button type="button" onClick={handleAddEmail}>
-                            Add Email
-                        </button>
-                    </label>
+                        <button type="button" onClick={handleAddEmail}>Add Email</button>
+                    </div>
+                    {/* Container for the email list */}
+                    <div className="email-list-container">
+                        {emails.length > 0 && (
+                            <div className="email-container">
+                                {emails.map((emailItem, index) => (
+                                    <div key={index} className="email-item">
+                                        {emailItem}
+                                        <button className="remove-email" onClick={() => handleRemoveEmail(emailItem)}>x</button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                 </div>
-                <br />
                 <button type="submit">Submit Job</button>
             </form>
+            </div>
+          </div>
         </div>
     );
 }
