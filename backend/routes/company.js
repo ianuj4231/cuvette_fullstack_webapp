@@ -3,6 +3,8 @@ const router = express.Router();
 const { Company, JobPosting, OtpModelPhone, OtpModelEmail } = require("../db");
 const app = express();
 const nodemailer =  require("nodemailer");
+const MailerSend = require('mailersend');
+const postmark = require("postmark");
 
 require('dotenv').config();
 const jwt = require("jsonwebtoken");
@@ -34,7 +36,7 @@ router.post( "/signup", zodMiddleware, signupMiddleware, async function (req, re
                     const token = jwt.sign(
                         { id: obj._id, email: obj.companyEmail },
                         process.env.JWT_SECRET,
-                        { expiresIn: '4h' }
+                        { expiresIn: '16h' }
                     );
                     
                     res.status(201).json({
@@ -126,29 +128,6 @@ router.post("/verifyPhone2",companyJwtMiddleware,  async (req, res) => {
 })
 
 
-const transporter = nodemailer.createTransport({
-    host: 'smtp.mailtrap.io',
-    port: 2525,
-    auth: {
-        user: process.env.user, 
-        pass: process.env.pass, 
-    },
-});
-
-const sendEmail = async (email, otp) => {
-    try {
-        const info = await transporter.sendMail({
-            from: '"User Service" <noreply@example.com>',
-            to: email, 
-            subject: 'OTP code', 
-            text: `${otp}`, 
-        });
-        console.log('Message sent: %s', info.messageId);
-    } catch (error) {
-        console.error('Error sending email:', error);
-    }
-};
-
 
 router.post("/verifyEmail",  
     async (req, res) => {
@@ -175,6 +154,7 @@ router.post("/verifyEmail",
 
  router.post("/verifyEmail2", async (req, res) => {
     const { enteredOtp, companyEmail } = req.body;
+    console.log(req.body);
 
     if (!enteredOtp || !companyEmail) {
         return res.status(400).json({ message: "OTP and company email are required." });
@@ -182,25 +162,38 @@ router.post("/verifyEmail",
 
     try {
         const otpRecord = await OtpModelEmail.findOne({ companyEmail });
-
+        const email =companyEmail;
         if (!otpRecord) {
             return res.status(404).json({ message: "OTP expired or not found." });
         }
-
+        
         if (otpRecord.otp.toString() === enteredOtp) {
-            await Company.updateOne(
-                { email: companyEmail },
+            console.log("OTP is correct, proceeding with update");
+
+            const companyRecord = await Company.findOne({ companyEmail: "ianuj4231@gmail.com" });
+            console.log("Company Record Before Update:", companyRecord);
+
+            const updateResult = await Company.updateOne(
+                { companyEmail: email },
                 { $set: { "isVerified.email": true } }
             );
+
+            console.log("Update Result:", updateResult);
+
+            if (updateResult.nModified === 0) {
+                console.log("No document was updated.");
+                return res.status(500).json({ message: "Failed to verify email." });
+            }
 
             await OtpModelEmail.deleteOne({ companyEmail });
 
             return res.status(200).json({ message: "Email verified successfully." });
         } else {
+            console.log("Invalid OTP entered");
             return res.status(400).json({ message: "Invalid OTP. Please try again." });
         }
     } catch (error) {
-        console.log(error);
+        console.error("Error during email verification:", error);
         return res.status(500).json({ message: "Internal server error" });
     }
 });
@@ -224,6 +217,7 @@ router.post('/postJob', companyJwtMiddleware,   async (req, res) => {
             candidateEmails
         });
 
+       console.log(newJobPosting);
        
         res.status(201).json({ jobPosting: newJobPosting });
     } catch (error) {
@@ -250,7 +244,7 @@ router.get("/getAllCandidates",  companyJwtMiddleware ,  async (req, res, next) 
 router.get("/getVerifiedStatus", companyJwtMiddleware, async function (req, res, next) {
     try {
         const company = await Company.findOne({ _id: req.company.id });
-        console.log(company);
+        console.log("company  is ", company);
         
         if (!company) {
             return res.status(404).json({ message: 'Company not found' });
@@ -263,5 +257,79 @@ router.get("/getVerifiedStatus", companyJwtMiddleware, async function (req, res,
         return res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+router.post("/acceptCandidate", companyJwtMiddleware, async (req, res, next) => {
+    const { email } = req.body;
+    try {
+        await sendEmail2(email, 'accepted');
+        return res.status(200).json({ message: `Candidate ${email} accepted` });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Error accepting candidate' });
+    }
+});
+
+router.post("/rejectCandidate", companyJwtMiddleware, async (req, res, next) => {
+    const { email } = req.body;
+    try {
+        await sendEmail2(email, 'rejected'); 
+        return res.status(200).json({ message: `Candidate ${email} rejected` });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Error rejecting candidate' });
+    }
+});
+
+
+async function sendEmail2(email, status) {
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.mailtrap.io',
+        port: 2525,
+        auth: {
+            user: process.env.user, 
+            pass: process.env.pass, 
+        },
+    });
+    console.log("xxx");
+    
+    let subject, text;
+    if (status === 'accepted') {
+        subject = 'Congratulations, You Are Accepted!';
+        text = `Dear ${email},\n\nWe are pleased to inform you that you have been accepted!\n\nBest regards,\nYour Company`;
+    } else {
+        subject = 'We Regret to Inform You';
+        text = `Dear ${email},\n\nUnfortunately, you have not been selected at this time.\n\nBest regards,\nYour Company`;
+    }
+
+    await transporter.sendMail({
+        from: 'your-email@gmail.com',
+        to: email,
+        subject: subject,
+        text: text 
+    });
+}
+
+const transporter = nodemailer.createTransport({
+    host: 'smtp.mailtrap.io',
+    port: 2525,
+    auth: {
+        user: process.env.user, 
+        pass: process.env.pass, 
+    },
+});
+
+const sendEmail = async (email, otp) => {
+    try {
+        const info = await transporter.sendMail({
+            from: '"User Service" <noreply@example.com>',
+            to: email, 
+            subject: 'OTP code', 
+            text: `${otp}`, 
+        });
+        console.log('Message sent: ', info.messageId);
+    } catch (error) {
+        console.error('Error sending email:', error);
+    }
+};
 
 module.exports= router;
