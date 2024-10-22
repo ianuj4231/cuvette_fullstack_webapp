@@ -30,7 +30,8 @@
 
 ![Screenshot (2699)](https://github.com/user-attachments/assets/f4ac0164-26c6-4ad5-93b9-c45536079eb4)
 ![Screenshot (2701)](https://github.com/user-attachments/assets/501896a9-dea0-4d46-b467-5f2ccafb464b)
-![Uploading Screenshot (2700).png…]()
+![Screenshot (2700)](https://github.com/user-attachments/assets/6977d425-2fd5-45bd-bfae-b55082906714)
+
 
 ![Screenshot (2696)](https://github.com/user-attachments/assets/d7dacf63-de15-4fe9-a1d7-03bf90e346d7)
 Templates attached with candiate email
