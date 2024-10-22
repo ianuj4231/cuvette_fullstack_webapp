@@ -111,7 +111,7 @@ function CreateInterview() {
           cancelButtonText: 'Undo'
         }).then((result) => {
           if (result.isDismissed) {
-            setStatus(prevStatus => ({ ...prevStatus, [email]: undefined })); // Revert status
+            setStatus(prevStatus => ({ ...prevStatus, [email]: undefined }));
           }
         });
       })
