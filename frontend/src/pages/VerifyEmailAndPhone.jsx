@@ -159,8 +159,8 @@ function VerifyEmailAndPhone() {
       console.log('Response:', response.data);
       alert('Email OTP verified successfully!');
       setIsEmailVerified(true);
-      setShowOtpInputEmail(false); // Hide OTP input after successful verification
-      setEmailOtp(""); // Clear the OTP input field
+      setShowOtpInputEmail(false); 
+      setEmailOtp(""); 
     } catch (error) {
       console.error('Error:', error.response.data.message);
     }
